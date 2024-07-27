@@ -3,8 +3,20 @@
 import { useState } from "react";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation'
+import { useSession } from "next-auth/react";
 
-export const PromptCard = ({ post, handleTagClick, hendleEdit, handleDelete}) => {
+export const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete}) => {
+  const { data : session } = useSession();
+  const pathName = usePathname();
+  const router = useRouter();
+  const [copied, setcopied] = useState("")
+
+  const handleCopy = () =>{
+    setcopied(post.prompt)
+    navigator.clipboard.writeText(post.prompt);
+    setTimeout(()=> setcopied(""), 3000)
+  }
+
   return (
     <div className='prompt_card'>
       <div className='flex justify-between items-start gap-5'>
@@ -26,7 +38,27 @@ export const PromptCard = ({ post, handleTagClick, hendleEdit, handleDelete}) =>
             </p>
           </div>
         </div>
+
+        <div className='copy_btn' onClick={handleCopy}>
+        <Image
+        src={copied === post.prompt?
+          '/assets/icons/tick.svg'
+          : '/assets/icons/copy.svg'
+        }
+        width={18}
+        height={18}
+        />
+        </div>
       </div>
+        <p className='my-4 font-satoshi text-sm'>{post.prompt}</p>
+        <p className='font-inter text-sm blue_gradient cursor-pointer' onClick={()=> handleTagClick && handleTagClick(post.tag)}>{post.tag}</p>
+
+        {session?.user.id === post.creator._id && pathName === '/profile' && (
+          <div className='flex justify-around mt-8 border-t border-gray-100'>
+            <button className='font-inter text-sm text-white bg-green-500 hover:bg-green-600 w-16 h-8 rounded-full cursor-pointer' onClick={handleEdit}>Edit</button>
+            <button className='font-inter text-sm text-white bg-orange-500 hover:bg-orange-600 w-16 h-8  rounded-full cursor-pointer' onClick={handleDelete}>Delete</button>
+          </div>
+        )}
     </div>
   )
 }
