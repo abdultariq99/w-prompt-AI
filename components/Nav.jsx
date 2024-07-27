@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 export const Nav = () => {
- const { data: session } = useSession;
+ const { data: session } = useSession();
  const [providers, setProviders] = useState(null);
  const [toggleDropDown, setToggleDropDown] = useState(false)
 
@@ -15,9 +15,8 @@ export const Nav = () => {
     const response = await getProviders();
     setProviders(response);
   }
-
   setUpProviders()
- }, []);
+}, []);
 
   return (
     <nav className='flex-between w-full mb-16 mt-4'>
@@ -33,7 +32,7 @@ export const Nav = () => {
             <Link href='/create-prompt' className='black_btn'>Create Post</Link>
             <button type='button' onClick={signOut} className='outline_btn'>Sign Out</button>
             <Link href='/profile'>
-            <Image src='/assets/images/logo.svg' width={37} height={37} className='rounded-full' alt='profile'/>
+            <Image src={session?.user.image} width={37} height={37} className='rounded-full' alt='profile'/>
             </Link>
           </div>
         ) : (
@@ -52,7 +51,7 @@ export const Nav = () => {
       <div className='sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'>
-            <Image src='/assets/images/logo.svg' width={37} height={37} className='rounded-full' alt='profile'
+            <Image src={session?.user.image} width={37} height={37} className='rounded-full' alt='profile'
             onClick={()=>setToggleDropDown((prev)=> !prev)}
             />
             {toggleDropDown && (
