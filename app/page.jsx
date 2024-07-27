@@ -1,4 +1,4 @@
-import Feed from '@components/Feed';
+import { Feed } from '@components/Feed';
 
 export default function home() {
   return (
@@ -10,6 +10,7 @@ export default function home() {
         <p className="desc text-center">
           W-Prompts is an open-source AI prompting tool for modern world to discover, create and share creative AI prompts
         </p>
+        <Feed/>
         </section>
   )
 }
