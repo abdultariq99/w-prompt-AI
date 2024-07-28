@@ -23,7 +23,6 @@ const createPrompt = async (e) =>{
       method: 'POST',
       body: JSON.stringify({
         prompt: post.prompt,
-        userName: session?.user.name.replace(' ', '').toLowerCase(),
         userId: session?.user.id,
         tag: post.tag
       })
