@@ -3,12 +3,12 @@ import Prompt from "@models/prompts";
 
 
 export const POST = async (req,res) =>{
-    const { userId, prompt, tag } = await req.json();
-
+    const { userId, prompt, tag, userName } = await req.json();
     try{
         await connectToDB();
         const newPrompt = new Prompt({
             creator: userId,
+            username: userName,
             prompt,
             tag
         })

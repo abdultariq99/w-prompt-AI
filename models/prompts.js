@@ -5,6 +5,10 @@ const PromptSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    username : {
+        type: String,
+        required: [true, "Username is required!"]
+    },
     prompt : {
         type: String,
         required: [true, "Prompt is required!"]

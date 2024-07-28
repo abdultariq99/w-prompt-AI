@@ -14,7 +14,7 @@ export default function CreatePrompt() {
     prompt: '',
     tag: ''
   })
-
+  
 const createPrompt = async (e) =>{
   e.preventDefault();
   setSubmitting(true);
@@ -23,6 +23,7 @@ const createPrompt = async (e) =>{
       method: 'POST',
       body: JSON.stringify({
         prompt: post.prompt,
+        userName: session?.user.name.replace(' ', '').toLowerCase(),
         userId: session?.user.id,
         tag: post.tag
       })
