@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Form } from '@components/Form';
+import { Suspense } from 'react';
 
-export default function EditPrompt() {
+const EditPromptContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get('id')
@@ -71,3 +72,10 @@ const updatePrompt = async (e) =>{
   )
 }
 
+export default function EditPrompt() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditPromptContent />
+    </Suspense>
+  );
+}
