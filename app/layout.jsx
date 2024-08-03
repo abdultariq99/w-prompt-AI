@@ -18,9 +18,7 @@ export default function Rootlayout({ children }) {
             </div>
             <main className='app'>
                 <Nav />
-                <Suspense fallback={null}>
                 {children}
-                </Suspense>
             </main>
             </Provider>
         </body>

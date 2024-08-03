@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from 'next/image';
-import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation'
 import { useSession } from "next-auth/react";
 
@@ -17,7 +16,6 @@ export const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete}) =>
     navigator.clipboard.writeText(post.prompt);
     setTimeout(()=> setcopied(""), 3000)
   }
-
   const handleProfileClick = () =>{
     if(post.creator._id === session?.user.id){
       return router.push('/profile')

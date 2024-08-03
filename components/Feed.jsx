@@ -37,6 +37,7 @@ export const Feed = () => {
     || p.tag.toLowerCase().includes(searchText.toLowerCase()
   )
   )
+  
   const handleTagClick = (postTag) =>{
     setSearchText(postTag)
   }
